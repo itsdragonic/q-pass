@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Iframe</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    #iframeContainer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    #urlInput {
+      position: fixed;
+      bottom: 30px;
+      left: 10px;
+      width: calc(100% - 40px);
+      padding: 10px;
+      border: 2px solid #3498db;
+      border-radius: 5px;
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.3s ease;
+
+    }
+
+    #urlInput:hover,
+    #urlInput:focus {
+      border-color: #2980b9
+    }
+  </style>
+</head>
+<body>
+
+<div id="iframeContainer">
+  <iframe id="myIframe" src="https://quizlet.com/388645776/learn/embed" width="100%" height="100%" style="border: 0;"></iframe>
+</div>
+
+<div>
+  <input type="text" id="urlInput" placeholder="Paste Quizlet link here">
+</div>
+
+<script>
+  document.getElementById('urlInput').addEventListener('input', function() {
+    var inputUrl = this.value;
+    var match = inputUrl.match(/\/(\d+)\//); // Extract number ID from the URL
+    if (match) {
+      var numberID = match[1];
+      var newUrl = 'https://quizlet.com/' + numberID + '/learn/embed';
+      document.getElementById('myIframe').src = newUrl;
+    }
+  });
+</script>
+
+</body>
+</html>
